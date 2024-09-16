@@ -1,0 +1,23 @@
+# Arquivo de variáveis de ambiente
+.env
+
+# Volumes e dados persistentes do Docker
+volumes/
+prometheus_data/
+grafana_data/
+
+# Arquivos de logs
+*.log
+
+# Arquivos temporários
+*.tmp
+*.swp
+*.bak
+
+# Cache do Docker Compose
+docker-compose.override.yml
+
+# Configurações de IDEs
+.vscode/
+.idea/
+
