@@ -1,5 +1,6 @@
 # Arquivo de variáveis de ambiente
 .env
+grafana.env
 
 # Volumes e dados persistentes do Docker
 volumes/

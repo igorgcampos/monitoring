@@ -43,6 +43,7 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana.ini:/etc/grafana/grafana.ini:ro  # Arquivo de configuração com permissões somente leitura
+      - ./provisioning:/etc/grafana/provisioning
     ports:
       - "3000:3000"
     restart: unless-stopped
