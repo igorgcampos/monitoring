@@ -897,7 +897,7 @@
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT AVG(CPUUtilization) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+          "sqlExpression": "SELECT AVG(CPUUtilization) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
         }
       ],
       "title": "CPU (média por instância)",
@@ -948,7 +948,7 @@
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT MAX(StatusCheckFailed) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+          "sqlExpression": "SELECT MAX(StatusCheckFailed) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
         }
       ],
       "title": "Status Check",
@@ -987,7 +987,7 @@
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(NetworkIn) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+          "sqlExpression": "SELECT SUM(NetworkIn) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
         }
       ],
       "title": "Network In (período)",
@@ -1026,7 +1026,7 @@
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(NetworkOut) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+          "sqlExpression": "SELECT SUM(NetworkOut) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
         }
       ],
       "title": "Network Out (período)",
@@ -1091,7 +1091,7 @@
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT AVG(CPUUtilization) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+          "sqlExpression": "SELECT AVG(CPUUtilization) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
         }
       ],
       "title": "CPU por Instância EC2 (%)",
@@ -1150,7 +1150,7 @@
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(NetworkIn) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+          "sqlExpression": "SELECT SUM(NetworkIn) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
         },
         {
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
@@ -1160,7 +1160,7 @@
           "queryMode": "Metrics",
           "refId": "B",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(NetworkOut) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+          "sqlExpression": "SELECT SUM(NetworkOut) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
         }
       ],
       "title": "Rede EC2 — In / Out (bytes por período)",
@@ -1219,7 +1219,7 @@
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(DiskReadBytes) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+          "sqlExpression": "SELECT SUM(DiskReadBytes) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
         },
         {
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
@@ -1229,7 +1229,7 @@
           "queryMode": "Metrics",
           "refId": "B",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(DiskWriteBytes) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+          "sqlExpression": "SELECT SUM(DiskWriteBytes) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
         }
       ],
       "title": "Disco EC2 — Read / Write Bytes ²",
@@ -1288,7 +1288,7 @@
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(DiskReadOps) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+          "sqlExpression": "SELECT SUM(DiskReadOps) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
         },
         {
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
@@ -1298,7 +1298,7 @@
           "queryMode": "Metrics",
           "refId": "B",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(DiskWriteOps) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+          "sqlExpression": "SELECT SUM(DiskWriteOps) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
         }
       ],
       "title": "Disco EC2 — Read / Write Ops ²",
