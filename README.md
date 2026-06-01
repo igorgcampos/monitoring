@@ -174,39 +174,98 @@ docker stats
 
 ---
 
-## Adicionando Targets ao Prometheus
+## Prometheus e Node Exporter (opcional)
 
-Edite `prometheus.yml` e adicione seus serviços em `scrape_configs`:
+O Prometheus nesta stack é **opcional** e voltado para métricas de infraestrutura local. Para monitorar CloudFront, S3 e EC2 via CloudWatch, o Prometheus **não é necessário** — o Grafana faz isso diretamente pela API da AWS.
+
+O Prometheus passa a ser útil quando você quer coletar métricas do sistema operacional da EC2 (CPU, memória, disco, rede) com granularidade maior do que o CloudWatch oferece. Para isso, usa-se o **Node Exporter**.
+
+```
+EC2 (host)
+  └── Node Exporter :9100  ←  expõe métricas do SO
+          ↑
+     Prometheus (Docker)   ←  coleta a cada 15s
+          ↑
+       Grafana             ←  visualiza
+```
+
+### Instalando o Node Exporter na EC2
+
+Execute na instância que deseja monitorar:
+
+```bash
+# Baixa e instala o Node Exporter
+wget https://github.com/prometheus/node_exporter/releases/download/v1.8.1/node_exporter-1.8.1.linux-amd64.tar.gz
+tar xvf node_exporter-1.8.1.linux-amd64.tar.gz
+sudo mv node_exporter-1.8.1.linux-amd64/node_exporter /usr/local/bin/
+
+# Cria o serviço systemd para iniciar automaticamente
+sudo tee /etc/systemd/system/node_exporter.service > /dev/null <<EOF
+[Unit]
+Description=Node Exporter
+After=network.target
+
+[Service]
+User=nobody
+ExecStart=/usr/local/bin/node_exporter
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Habilita e inicia o serviço
+sudo systemctl daemon-reload
+sudo systemctl enable node_exporter
+sudo systemctl start node_exporter
+
+# Verifica se está rodando
+sudo systemctl status node_exporter
+```
+
+Confirme que as métricas estão sendo expostas:
+
+```bash
+curl http://localhost:9100/metrics | head -20
+```
+
+### Configurando o Prometheus para coletar do Node Exporter
+
+Edite o `prometheus.yml` e adicione o job:
 
 ```yaml
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
 scrape_configs:
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: 'minha-aplicacao'
+  - job_name: 'node-exporter'
     static_configs:
-      - targets: ['host.docker.internal:8080']
+      - targets: ['host.docker.internal:9100']
 ```
 
-### Acessando aplicações rodando no host (EC2 / Linux)
-
-O hostname `host.docker.internal` **não é resolvido automaticamente no Docker Engine no Linux**. Ele funciona apenas no Docker Desktop (Mac/Windows).
-
-O `docker-compose.yml` já inclui o mapeamento necessário via `extra_hosts` no serviço do Prometheus:
+O hostname `host.docker.internal` aponta para o host da EC2 a partir do container Docker. O `docker-compose.yml` já inclui o mapeamento necessário via `extra_hosts` para que isso funcione no Linux:
 
 ```yaml
 extra_hosts:
   - "host.docker.internal:host-gateway"
 ```
 
-Isso faz com que `host.docker.internal` aponte para o IP do host (`172.17.0.1` por padrão), permitindo que o Prometheus alcance serviços rodando fora do Docker.
-
 Após editar o `prometheus.yml`, recarregue sem derrubar o container:
 
 ```bash
 curl -X POST http://localhost:9090/-/reload
 ```
+
+Confirme em **http://localhost:9090/targets** que o endpoint `host.docker.internal:9100` aparece como `UP`.
+
+### Security Group
+
+A porta `9100` do Node Exporter **não deve ser exposta para a internet**. Certifique-se de que o Security Group da EC2 **não** tem uma regra de entrada liberando a porta `9100` para `0.0.0.0/0`. O Prometheus acessa localmente via Docker bridge — nenhuma regra de entrada é necessária.
 
 ---
 
