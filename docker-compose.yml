@@ -21,6 +21,8 @@ services:
           memory: 1g
           cpus: "0.5"
     user: "65534:65534"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     security_opt:
       - no-new-privileges:true
     healthcheck:

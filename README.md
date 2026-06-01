@@ -186,10 +186,23 @@ scrape_configs:
 
   - job_name: 'minha-aplicacao'
     static_configs:
-      - targets: ['host.docker.internal:8080']  # app rodando no host
+      - targets: ['host.docker.internal:8080']
 ```
 
-Após editar, recarregue sem derrubar o container:
+### Acessando aplicações rodando no host (EC2 / Linux)
+
+O hostname `host.docker.internal` **não é resolvido automaticamente no Docker Engine no Linux**. Ele funciona apenas no Docker Desktop (Mac/Windows).
+
+O `docker-compose.yml` já inclui o mapeamento necessário via `extra_hosts` no serviço do Prometheus:
+
+```yaml
+extra_hosts:
+  - "host.docker.internal:host-gateway"
+```
+
+Isso faz com que `host.docker.internal` aponte para o IP do host (`172.17.0.1` por padrão), permitindo que o Prometheus alcance serviços rodando fora do Docker.
+
+Após editar o `prometheus.yml`, recarregue sem derrubar o container:
 
 ```bash
 curl -X POST http://localhost:9090/-/reload
