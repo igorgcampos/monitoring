@@ -20,7 +20,7 @@ services:
         limits:
           memory: 1g
           cpus: "0.5"
-    user: "1000:1000"
+    user: "65534:65534"
     security_opt:
       - no-new-privileges:true
     healthcheck:
@@ -55,7 +55,7 @@ services:
         limits:
           memory: 512m
           cpus: "0.25"
-    user: "1001:1001"
+    user: "472:472"
     security_opt:
       - no-new-privileges:true
     healthcheck:
