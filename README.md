@@ -98,13 +98,16 @@ GRAFANA_ADMIN_PASSWORD=MinhaS3nh@Forte!
 
 ```
 monitoring/
-├── docker-compose.yml          # Orquestração dos serviços
-├── prometheus.yml              # Configuração e targets do Prometheus
-├── grafana.ini                 # Configurações de segurança do Grafana
+├── docker-compose.yml                        # Orquestração dos serviços
+├── prometheus.yml                            # Configuração e targets do Prometheus
+├── grafana.ini                               # Configurações de segurança do Grafana
 ├── provisioning/
-│   └── datasource.yml          # Datasource do Prometheus provisionado automaticamente
-├── .env                        # Variáveis de ambiente (não versionado)
-├── .env.example                # Modelo de variáveis (versionado)
+│   ├── datasource.yml                        # Datasource do Prometheus (provisionado automaticamente)
+│   └── dashboards/
+│       ├── provider.yml                      # Configuração do provedor de dashboards
+│       └── infograficos.json                 # Dashboard CloudFront + S3 + EC2
+├── .env                                      # Variáveis de ambiente (não versionado)
+├── .env.example                              # Modelo de variáveis (versionado)
 └── .gitignore
 ```
 
@@ -191,6 +194,116 @@ Após editar, recarregue sem derrubar o container:
 ```bash
 curl -X POST http://localhost:9090/-/reload
 ```
+
+---
+
+## Datasource CloudWatch — Acesso às Métricas AWS
+
+O Grafana acessa o CloudWatch diretamente via plugin, sem passar pelo Prometheus. Para isso precisa de permissão para chamar a API da AWS.
+
+```
+Grafana ──── Prometheus  (métricas locais)
+     └────── CloudWatch  (CloudFront, S3, EC2)
+                  │
+                  └──► AWS CloudWatch API
+```
+
+### Autenticação via IAM Instance Profile (recomendado)
+
+Se o Grafana roda em uma EC2, o container herda as credenciais da instância automaticamente via endpoint de metadados (`169.254.169.254`). Nenhuma chave é necessária no código.
+
+#### 1. Criar a Policy IAM
+
+No **AWS Console → IAM → Policies → Create policy → JSON**, cole:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "CloudWatchLeitura",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:GetMetricData",
+        "cloudwatch:GetMetricStatistics",
+        "cloudwatch:ListMetrics",
+        "cloudwatch:DescribeAlarmsForMetric"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "TagsEInstancias",
+      "Effect": "Allow",
+      "Action": [
+        "tag:GetResources",
+        "ec2:DescribeInstances",
+        "ec2:DescribeTags",
+        "ec2:DescribeRegions"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+Nome sugerido: `GrafanaCloudWatchReadOnly`
+
+> `tag:GetResources` e `ec2:Describe*` são necessários para as queries EC2 por tag e para os dropdowns de variáveis do dashboard popularem corretamente.
+
+#### 2. Criar a Role
+
+**IAM → Roles → Create role**
+
+- **Trusted entity type:** `AWS service`
+- **Use case:** `EC2`
+- Selecionar a policy `GrafanaCloudWatchReadOnly`
+
+Nome sugerido: `GrafanaMonitoringRole`
+
+#### 3. Associar a Role à instância EC2
+
+**EC2 → Instances → selecionar a instância → Actions → Security → Modify IAM role**
+
+Selecionar `GrafanaMonitoringRole` → **Update IAM role**
+
+Não é necessário reiniciar a instância.
+
+#### 4. Configurar o datasource no Grafana
+
+**Connections → Add new connection → CloudWatch**
+
+| Campo | Valor |
+|---|---|
+| Authentication Provider | `AWS SDK Default` |
+| Default Region | sua região (ex: `us-east-1`) |
+
+Deixe Access Key e Secret Key em branco. O Grafana buscará as credenciais automaticamente via instance profile.
+
+---
+
+### Autenticação via Access Key (desenvolvimento local / WSL)
+
+Se estiver rodando fora de uma EC2, crie um **IAM User** com acesso programático, anexe a mesma policy `GrafanaCloudWatchReadOnly` e adicione as chaves ao `.env`:
+
+```dotenv
+AWS_ACCESS_KEY_ID=AKIA...
+AWS_SECRET_ACCESS_KEY=...
+AWS_DEFAULT_REGION=us-east-1
+```
+
+No datasource do Grafana, selecione **Authentication Provider: Access & secret key** e preencha com os valores acima.
+
+> Nunca commite o `.env` — ele já está no `.gitignore`.
+
+---
+
+### Dashboard provisionado
+
+O dashboard **Infográficos — CloudFront + S3 + EC2** é carregado automaticamente ao subir o stack. Ele aparece em **Dashboards → Infograficos** com variáveis dinâmicas para selecionar região, distribuição CloudFront e bucket S3.
+
+> **Métricas de requisição S3** (latência, erros, contagem de requests) precisam ser habilitadas por bucket em: **S3 → seu bucket → Properties → Request metrics → Create filter**.
+>
+> **Métricas de disco EC2** (`DiskReadBytes`, `DiskWriteBytes`) aparecem apenas em instâncias com **instance store**. Para instâncias EBS-backed, use o namespace `AWS/EBS`.
 
 ---
 
