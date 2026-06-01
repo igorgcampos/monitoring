@@ -1,0 +1,1406 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_CLOUDWATCH",
+      "label": "CloudWatch",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "cloudwatch",
+      "pluginName": "CloudWatch"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "cloudwatch",
+      "name": "CloudWatch",
+      "version": "1.0.0"
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "11.1.0"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Monitoramento de CloudFront, S3 e EC2 (tag Projeto: infograficos) via CloudWatch",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "id": 1,
+      "title": "CloudFront",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "blue", "value": null }]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 1 },
+      "id": 2,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["sum"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "alias": "Requisições",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "DistributionId": "${cloudfront_distribution}",
+            "Region": "Global"
+          },
+          "metricEditorMode": 0,
+          "metricName": "Requests",
+          "metricQueryType": 0,
+          "namespace": "AWS/CloudFront",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "us-east-1",
+          "statistic": "Sum"
+        }
+      ],
+      "title": "Requisições Totais",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "green", "value": null }]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 1 },
+      "id": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["sum"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "alias": "Bytes Baixados",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "DistributionId": "${cloudfront_distribution}",
+            "Region": "Global"
+          },
+          "metricEditorMode": 0,
+          "metricName": "BytesDownloaded",
+          "metricQueryType": 0,
+          "namespace": "AWS/CloudFront",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "us-east-1",
+          "statistic": "Sum"
+        }
+      ],
+      "title": "Bytes Baixados",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 5 }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 1 },
+      "id": 4,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "alias": "Taxa 4xx",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "DistributionId": "${cloudfront_distribution}",
+            "Region": "Global"
+          },
+          "metricEditorMode": 0,
+          "metricName": "4xxErrorRate",
+          "metricQueryType": 0,
+          "namespace": "AWS/CloudFront",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "us-east-1",
+          "statistic": "Average"
+        }
+      ],
+      "title": "Taxa de Erro 4xx",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 0.5 },
+              { "color": "red", "value": 1 }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 1 },
+      "id": 5,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "alias": "Taxa 5xx",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "DistributionId": "${cloudfront_distribution}",
+            "Region": "Global"
+          },
+          "metricEditorMode": 0,
+          "metricName": "5xxErrorRate",
+          "metricQueryType": 0,
+          "namespace": "AWS/CloudFront",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "us-east-1",
+          "statistic": "Average"
+        }
+      ],
+      "title": "Taxa de Erro 5xx",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "green", "value": null }]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 5 },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": ["sum", "mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [
+        {
+          "alias": "Requisições",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "DistributionId": "${cloudfront_distribution}",
+            "Region": "Global"
+          },
+          "metricEditorMode": 0,
+          "metricName": "Requests",
+          "metricQueryType": 0,
+          "namespace": "AWS/CloudFront",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "us-east-1",
+          "statistic": "Sum"
+        }
+      ],
+      "title": "Requisições ao CloudFront",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "red", "value": 80 }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 5 },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": ["mean", "max", "lastNotNull"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [
+        {
+          "alias": "4xx Error Rate",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "DistributionId": "${cloudfront_distribution}",
+            "Region": "Global"
+          },
+          "metricEditorMode": 0,
+          "metricName": "4xxErrorRate",
+          "metricQueryType": 0,
+          "namespace": "AWS/CloudFront",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "us-east-1",
+          "statistic": "Average"
+        },
+        {
+          "alias": "5xx Error Rate",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "DistributionId": "${cloudfront_distribution}",
+            "Region": "Global"
+          },
+          "metricEditorMode": 0,
+          "metricName": "5xxErrorRate",
+          "metricQueryType": 0,
+          "namespace": "AWS/CloudFront",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "us-east-1",
+          "statistic": "Average"
+        },
+        {
+          "alias": "Total Error Rate",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "DistributionId": "${cloudfront_distribution}",
+            "Region": "Global"
+          },
+          "metricEditorMode": 0,
+          "metricName": "TotalErrorRate",
+          "metricQueryType": 0,
+          "namespace": "AWS/CloudFront",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "C",
+          "region": "us-east-1",
+          "statistic": "Average"
+        }
+      ],
+      "title": "Taxas de Erro CloudFront (%)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "green", "value": null }]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 13 },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": ["sum", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [
+        {
+          "alias": "Bytes Baixados",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "DistributionId": "${cloudfront_distribution}",
+            "Region": "Global"
+          },
+          "metricEditorMode": 0,
+          "metricName": "BytesDownloaded",
+          "metricQueryType": 0,
+          "namespace": "AWS/CloudFront",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "us-east-1",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "Bytes Enviados",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "DistributionId": "${cloudfront_distribution}",
+            "Region": "Global"
+          },
+          "metricEditorMode": 0,
+          "metricName": "BytesUploaded",
+          "metricQueryType": 0,
+          "namespace": "AWS/CloudFront",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "us-east-1",
+          "statistic": "Sum"
+        }
+      ],
+      "title": "Transferência de Dados — CloudFront",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 21 },
+      "id": 9,
+      "title": "S3",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "green", "value": null }]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 22 },
+      "id": 10,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "alias": "Tamanho",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "BucketName": "${s3_bucket}",
+            "StorageType": "StandardStorage"
+          },
+          "metricEditorMode": 0,
+          "metricName": "BucketSizeBytes",
+          "metricQueryType": 0,
+          "namespace": "AWS/S3",
+          "period": "86400",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "statistic": "Average"
+        }
+      ],
+      "title": "Tamanho do Bucket (diário)",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "blue", "value": null }]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 22 },
+      "id": 11,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "alias": "Objetos",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "BucketName": "${s3_bucket}",
+            "StorageType": "AllStorageTypes"
+          },
+          "metricEditorMode": 0,
+          "metricName": "NumberOfObjects",
+          "metricQueryType": 0,
+          "namespace": "AWS/S3",
+          "period": "86400",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "statistic": "Average"
+        }
+      ],
+      "title": "Número de Objetos (diário)",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "green", "value": null }]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 22 },
+      "id": 12,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["sum"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "alias": "Requisições",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "BucketName": "${s3_bucket}",
+            "FilterId": "EntireBucket"
+          },
+          "metricEditorMode": 0,
+          "metricName": "AllRequests",
+          "metricQueryType": 0,
+          "namespace": "AWS/S3",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "statistic": "Sum"
+        }
+      ],
+      "title": "Requisições S3 ¹",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 10 }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 22 },
+      "id": 13,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["sum"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "alias": "Erros 4xx",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "BucketName": "${s3_bucket}",
+            "FilterId": "EntireBucket"
+          },
+          "metricEditorMode": 0,
+          "metricName": "4xxErrors",
+          "metricQueryType": 0,
+          "namespace": "AWS/S3",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "statistic": "Sum"
+        }
+      ],
+      "title": "Erros S3 4xx ¹",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "green", "value": null }]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 26 },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": ["lastNotNull"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": { "mode": "single", "sort": "none" }
+      },
+      "targets": [
+        {
+          "alias": "Standard Storage",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "BucketName": "${s3_bucket}",
+            "StorageType": "StandardStorage"
+          },
+          "metricEditorMode": 0,
+          "metricName": "BucketSizeBytes",
+          "metricQueryType": 0,
+          "namespace": "AWS/S3",
+          "period": "86400",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "statistic": "Average"
+        }
+      ],
+      "title": "Crescimento do Bucket S3 (diário)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "green", "value": null }]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 26 },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": ["mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [
+        {
+          "alias": "Latência Primeiro Byte",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "BucketName": "${s3_bucket}",
+            "FilterId": "EntireBucket"
+          },
+          "metricEditorMode": 0,
+          "metricName": "FirstByteLatency",
+          "metricQueryType": 0,
+          "namespace": "AWS/S3",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "statistic": "Average"
+        },
+        {
+          "alias": "Latência Total",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": {
+            "BucketName": "${s3_bucket}",
+            "FilterId": "EntireBucket"
+          },
+          "metricEditorMode": 0,
+          "metricName": "TotalRequestLatency",
+          "metricQueryType": 0,
+          "namespace": "AWS/S3",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "${region}",
+          "statistic": "Average"
+        }
+      ],
+      "title": "Latência S3 ¹",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 34 },
+      "id": 16,
+      "title": "EC2 — Tag Projeto: infograficos",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 70 },
+              { "color": "red", "value": 90 }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 35 },
+      "id": 17,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "metricEditorMode": 1,
+          "metricQueryType": 1,
+          "namespace": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "sqlExpression": "SELECT AVG(CPUUtilization) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+        }
+      ],
+      "title": "CPU (média por instância)",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [
+            {
+              "options": { "0": { "color": "green", "index": 0, "text": "OK" } },
+              "type": "value"
+            },
+            {
+              "options": { "1": { "color": "red", "index": 1, "text": "FALHOU" } },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "red", "value": 1 }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 35 },
+      "id": 18,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["max"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "metricEditorMode": 1,
+          "metricQueryType": 1,
+          "namespace": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "sqlExpression": "SELECT MAX(StatusCheckFailed) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+        }
+      ],
+      "title": "Status Check",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "blue", "value": null }]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 35 },
+      "id": 19,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["sum"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "metricEditorMode": 1,
+          "metricQueryType": 1,
+          "namespace": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "sqlExpression": "SELECT SUM(NetworkIn) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+        }
+      ],
+      "title": "Network In (período)",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "blue", "value": null }]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 35 },
+      "id": 20,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": { "calcs": ["sum"], "fields": "", "values": false },
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "metricEditorMode": 1,
+          "metricQueryType": 1,
+          "namespace": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "sqlExpression": "SELECT SUM(NetworkOut) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+        }
+      ],
+      "title": "Network Out (período)",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "line" }
+          },
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 70 },
+              { "color": "red", "value": 90 }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 39 },
+      "id": 21,
+      "options": {
+        "legend": {
+          "calcs": ["mean", "max", "lastNotNull"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [
+        {
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "metricEditorMode": 1,
+          "metricQueryType": 1,
+          "namespace": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "sqlExpression": "SELECT AVG(CPUUtilization) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+        }
+      ],
+      "title": "CPU por Instância EC2 (%)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "green", "value": null }]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 39 },
+      "id": 22,
+      "options": {
+        "legend": {
+          "calcs": ["mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [
+        {
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "metricEditorMode": 1,
+          "metricQueryType": 1,
+          "namespace": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "sqlExpression": "SELECT SUM(NetworkIn) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+        },
+        {
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "metricEditorMode": 1,
+          "metricQueryType": 1,
+          "namespace": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "${region}",
+          "sqlExpression": "SELECT SUM(NetworkOut) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+        }
+      ],
+      "title": "Rede EC2 — In / Out (bytes por período)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "green", "value": null }]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 47 },
+      "id": 23,
+      "options": {
+        "legend": {
+          "calcs": ["mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [
+        {
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "metricEditorMode": 1,
+          "metricQueryType": 1,
+          "namespace": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "sqlExpression": "SELECT SUM(DiskReadBytes) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+        },
+        {
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "metricEditorMode": 1,
+          "metricQueryType": 1,
+          "namespace": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "${region}",
+          "sqlExpression": "SELECT SUM(DiskWriteBytes) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+        }
+      ],
+      "title": "Disco EC2 — Read / Write Bytes ²",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": { "type": "linear" },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "green", "value": null }]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 47 },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": ["mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [
+        {
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "metricEditorMode": 1,
+          "metricQueryType": 1,
+          "namespace": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "${region}",
+          "sqlExpression": "SELECT SUM(DiskReadOps) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+        },
+        {
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "metricEditorMode": 1,
+          "metricQueryType": 1,
+          "namespace": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "${region}",
+          "sqlExpression": "SELECT SUM(DiskWriteOps) FROM \"AWS/EC2\" WHERE \"tag:Projeto\" = 'infograficos' GROUP BY InstanceId"
+        }
+      ],
+      "title": "Disco EC2 — Read / Write Ops ²",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 39,
+  "tags": ["cloudwatch", "cloudfront", "s3", "ec2", "infograficos"],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "hide": 0,
+        "includeAll": false,
+        "label": "Datasource CloudWatch",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "cloudwatch",
+        "refresh": 1,
+        "type": "datasource"
+      },
+      {
+        "current": {},
+        "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+        "definition": "",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Região AWS",
+        "multi": false,
+        "name": "region",
+        "options": [],
+        "query": {
+          "dimensionFilters": {},
+          "dimensionKey": "",
+          "ec2Filters": {},
+          "instanceID": "",
+          "metricName": "",
+          "namespace": "",
+          "queryType": "regions",
+          "refId": "RegionVariable"
+        },
+        "refresh": 1,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+        "definition": "",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Distribuição CloudFront",
+        "multi": false,
+        "name": "cloudfront_distribution",
+        "options": [],
+        "query": {
+          "dimensionFilters": {},
+          "dimensionKey": "DistributionId",
+          "ec2Filters": {},
+          "instanceID": "",
+          "metricName": "Requests",
+          "namespace": "AWS/CloudFront",
+          "queryType": "dimensionValues",
+          "refId": "CFDistributionVar",
+          "region": "us-east-1"
+        },
+        "refresh": 1,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+        "definition": "",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Bucket S3",
+        "multi": false,
+        "name": "s3_bucket",
+        "options": [],
+        "query": {
+          "dimensionFilters": {},
+          "dimensionKey": "BucketName",
+          "ec2Filters": {},
+          "instanceID": "",
+          "metricName": "BucketSizeBytes",
+          "namespace": "AWS/S3",
+          "queryType": "dimensionValues",
+          "refId": "S3BucketVar"
+        },
+        "refresh": 1,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": { "from": "now-3h", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Infográficos — CloudFront + S3 + EC2",
+  "uid": "infograficos-monitoring",
+  "version": 1
+}
