@@ -890,10 +890,10 @@
       },
       "targets": [
         {
-          "alias": "{{InstanceId}}",
+          "alias": "i-057e5f53cae52c233",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": { "InstanceId": "*" },
-          "matchExact": false,
+          "dimensions": { "InstanceId": "i-057e5f53cae52c233" },
+          "matchExact": true,
           "metricEditorMode": 0,
           "metricName": "CPUUtilization",
           "metricQueryType": 0,
@@ -901,6 +901,21 @@
           "period": "",
           "queryMode": "Metrics",
           "refId": "A",
+          "region": "${region}",
+          "statistic": "Average"
+        },
+        {
+          "alias": "i-0cc88ec11c2dc41e2",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": { "InstanceId": "i-0cc88ec11c2dc41e2" },
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "CPUUtilization",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
           "region": "${region}",
           "statistic": "Average"
         }
@@ -946,10 +961,10 @@
       },
       "targets": [
         {
-          "alias": "{{InstanceId}}",
+          "alias": "i-057e5f53cae52c233",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": { "InstanceId": "*" },
-          "matchExact": false,
+          "dimensions": { "InstanceId": "i-057e5f53cae52c233" },
+          "matchExact": true,
           "metricEditorMode": 0,
           "metricName": "StatusCheckFailed",
           "metricQueryType": 0,
@@ -957,6 +972,21 @@
           "period": "",
           "queryMode": "Metrics",
           "refId": "A",
+          "region": "${region}",
+          "statistic": "Maximum"
+        },
+        {
+          "alias": "i-0cc88ec11c2dc41e2",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": { "InstanceId": "i-0cc88ec11c2dc41e2" },
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "StatusCheckFailed",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
           "region": "${region}",
           "statistic": "Maximum"
         }
@@ -990,10 +1020,10 @@
       },
       "targets": [
         {
-          "alias": "{{InstanceId}}",
+          "alias": "i-057e5f53cae52c233",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": { "InstanceId": "*" },
-          "matchExact": false,
+          "dimensions": { "InstanceId": "i-057e5f53cae52c233" },
+          "matchExact": true,
           "metricEditorMode": 0,
           "metricName": "NetworkIn",
           "metricQueryType": 0,
@@ -1001,6 +1031,21 @@
           "period": "",
           "queryMode": "Metrics",
           "refId": "A",
+          "region": "${region}",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "i-0cc88ec11c2dc41e2",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": { "InstanceId": "i-0cc88ec11c2dc41e2" },
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "NetworkIn",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
           "region": "${region}",
           "statistic": "Sum"
         }
@@ -1034,10 +1079,10 @@
       },
       "targets": [
         {
-          "alias": "{{InstanceId}}",
+          "alias": "i-057e5f53cae52c233",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": { "InstanceId": "*" },
-          "matchExact": false,
+          "dimensions": { "InstanceId": "i-057e5f53cae52c233" },
+          "matchExact": true,
           "metricEditorMode": 0,
           "metricName": "NetworkOut",
           "metricQueryType": 0,
@@ -1045,6 +1090,21 @@
           "period": "",
           "queryMode": "Metrics",
           "refId": "A",
+          "region": "${region}",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "i-0cc88ec11c2dc41e2",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": { "InstanceId": "i-0cc88ec11c2dc41e2" },
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "NetworkOut",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
           "region": "${region}",
           "statistic": "Sum"
         }
@@ -1104,10 +1164,10 @@
       },
       "targets": [
         {
-          "alias": "{{InstanceId}}",
+          "alias": "i-057e5f53cae52c233",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": { "InstanceId": "*" },
-          "matchExact": false,
+          "dimensions": { "InstanceId": "i-057e5f53cae52c233" },
+          "matchExact": true,
           "metricEditorMode": 0,
           "metricName": "CPUUtilization",
           "metricQueryType": 0,
@@ -1115,6 +1175,21 @@
           "period": "",
           "queryMode": "Metrics",
           "refId": "A",
+          "region": "${region}",
+          "statistic": "Average"
+        },
+        {
+          "alias": "i-0cc88ec11c2dc41e2",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": { "InstanceId": "i-0cc88ec11c2dc41e2" },
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "CPUUtilization",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
           "region": "${region}",
           "statistic": "Average"
         }
@@ -1168,10 +1243,10 @@
       },
       "targets": [
         {
-          "alias": "Network In — {{InstanceId}}",
+          "alias": "Network In — i-057e5f53cae52c233",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": { "InstanceId": "*" },
-          "matchExact": false,
+          "dimensions": { "InstanceId": "i-057e5f53cae52c233" },
+          "matchExact": true,
           "metricEditorMode": 0,
           "metricName": "NetworkIn",
           "metricQueryType": 0,
@@ -1183,17 +1258,47 @@
           "statistic": "Sum"
         },
         {
-          "alias": "Network Out — {{InstanceId}}",
+          "alias": "Network In — i-0cc88ec11c2dc41e2",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": { "InstanceId": "*" },
-          "matchExact": false,
+          "dimensions": { "InstanceId": "i-0cc88ec11c2dc41e2" },
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "NetworkIn",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "${region}",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "Network Out — i-057e5f53cae52c233",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": { "InstanceId": "i-057e5f53cae52c233" },
+          "matchExact": true,
           "metricEditorMode": 0,
           "metricName": "NetworkOut",
           "metricQueryType": 0,
           "namespace": "AWS/EC2",
           "period": "",
           "queryMode": "Metrics",
-          "refId": "B",
+          "refId": "C",
+          "region": "${region}",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "Network Out — i-0cc88ec11c2dc41e2",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": { "InstanceId": "i-0cc88ec11c2dc41e2" },
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "NetworkOut",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "D",
           "region": "${region}",
           "statistic": "Sum"
         }
@@ -1247,10 +1352,10 @@
       },
       "targets": [
         {
-          "alias": "Disk Read — {{InstanceId}}",
+          "alias": "Disk Read — i-057e5f53cae52c233",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": { "InstanceId": "*" },
-          "matchExact": false,
+          "dimensions": { "InstanceId": "i-057e5f53cae52c233" },
+          "matchExact": true,
           "metricEditorMode": 0,
           "metricName": "DiskReadBytes",
           "metricQueryType": 0,
@@ -1262,17 +1367,47 @@
           "statistic": "Sum"
         },
         {
-          "alias": "Disk Write — {{InstanceId}}",
+          "alias": "Disk Read — i-0cc88ec11c2dc41e2",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": { "InstanceId": "*" },
-          "matchExact": false,
+          "dimensions": { "InstanceId": "i-0cc88ec11c2dc41e2" },
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "DiskReadBytes",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "${region}",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "Disk Write — i-057e5f53cae52c233",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": { "InstanceId": "i-057e5f53cae52c233" },
+          "matchExact": true,
           "metricEditorMode": 0,
           "metricName": "DiskWriteBytes",
           "metricQueryType": 0,
           "namespace": "AWS/EC2",
           "period": "",
           "queryMode": "Metrics",
-          "refId": "B",
+          "refId": "C",
+          "region": "${region}",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "Disk Write — i-0cc88ec11c2dc41e2",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": { "InstanceId": "i-0cc88ec11c2dc41e2" },
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "DiskWriteBytes",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "D",
           "region": "${region}",
           "statistic": "Sum"
         }
@@ -1326,10 +1461,10 @@
       },
       "targets": [
         {
-          "alias": "Read Ops — {{InstanceId}}",
+          "alias": "Read Ops — i-057e5f53cae52c233",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": { "InstanceId": "*" },
-          "matchExact": false,
+          "dimensions": { "InstanceId": "i-057e5f53cae52c233" },
+          "matchExact": true,
           "metricEditorMode": 0,
           "metricName": "DiskReadOps",
           "metricQueryType": 0,
@@ -1341,17 +1476,47 @@
           "statistic": "Sum"
         },
         {
-          "alias": "Write Ops — {{InstanceId}}",
+          "alias": "Read Ops — i-0cc88ec11c2dc41e2",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": { "InstanceId": "*" },
-          "matchExact": false,
+          "dimensions": { "InstanceId": "i-0cc88ec11c2dc41e2" },
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "DiskReadOps",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "${region}",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "Write Ops — i-057e5f53cae52c233",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": { "InstanceId": "i-057e5f53cae52c233" },
+          "matchExact": true,
           "metricEditorMode": 0,
           "metricName": "DiskWriteOps",
           "metricQueryType": 0,
           "namespace": "AWS/EC2",
           "period": "",
           "queryMode": "Metrics",
-          "refId": "B",
+          "refId": "C",
+          "region": "${region}",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "Write Ops — i-0cc88ec11c2dc41e2",
+          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
+          "dimensions": { "InstanceId": "i-0cc88ec11c2dc41e2" },
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "DiskWriteOps",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "D",
           "region": "${region}",
           "statistic": "Sum"
         }
