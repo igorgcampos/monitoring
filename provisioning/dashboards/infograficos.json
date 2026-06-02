@@ -890,14 +890,19 @@
       },
       "targets": [
         {
+          "alias": "{{InstanceId}}",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "metricEditorMode": 1,
-          "metricQueryType": 1,
-          "namespace": "",
+          "dimensions": { "InstanceId": "*" },
+          "matchExact": false,
+          "metricEditorMode": 0,
+          "metricName": "CPUUtilization",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT AVG(CPUUtilization) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
+          "statistic": "Average"
         }
       ],
       "title": "CPU (média por instância)",
@@ -941,14 +946,19 @@
       },
       "targets": [
         {
+          "alias": "{{InstanceId}}",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "metricEditorMode": 1,
-          "metricQueryType": 1,
-          "namespace": "",
+          "dimensions": { "InstanceId": "*" },
+          "matchExact": false,
+          "metricEditorMode": 0,
+          "metricName": "StatusCheckFailed",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT MAX(StatusCheckFailed) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
+          "statistic": "Maximum"
         }
       ],
       "title": "Status Check",
@@ -980,14 +990,19 @@
       },
       "targets": [
         {
+          "alias": "{{InstanceId}}",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "metricEditorMode": 1,
-          "metricQueryType": 1,
-          "namespace": "",
+          "dimensions": { "InstanceId": "*" },
+          "matchExact": false,
+          "metricEditorMode": 0,
+          "metricName": "NetworkIn",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(NetworkIn) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
+          "statistic": "Sum"
         }
       ],
       "title": "Network In (período)",
@@ -1019,14 +1034,19 @@
       },
       "targets": [
         {
+          "alias": "{{InstanceId}}",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "metricEditorMode": 1,
-          "metricQueryType": 1,
-          "namespace": "",
+          "dimensions": { "InstanceId": "*" },
+          "matchExact": false,
+          "metricEditorMode": 0,
+          "metricName": "NetworkOut",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(NetworkOut) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
+          "statistic": "Sum"
         }
       ],
       "title": "Network Out (período)",
@@ -1084,14 +1104,19 @@
       },
       "targets": [
         {
+          "alias": "{{InstanceId}}",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "metricEditorMode": 1,
-          "metricQueryType": 1,
-          "namespace": "",
+          "dimensions": { "InstanceId": "*" },
+          "matchExact": false,
+          "metricEditorMode": 0,
+          "metricName": "CPUUtilization",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT AVG(CPUUtilization) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
+          "statistic": "Average"
         }
       ],
       "title": "CPU por Instância EC2 (%)",
@@ -1143,24 +1168,34 @@
       },
       "targets": [
         {
+          "alias": "Network In — {{InstanceId}}",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "metricEditorMode": 1,
-          "metricQueryType": 1,
-          "namespace": "",
+          "dimensions": { "InstanceId": "*" },
+          "matchExact": false,
+          "metricEditorMode": 0,
+          "metricName": "NetworkIn",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(NetworkIn) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
+          "statistic": "Sum"
         },
         {
+          "alias": "Network Out — {{InstanceId}}",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "metricEditorMode": 1,
-          "metricQueryType": 1,
-          "namespace": "",
+          "dimensions": { "InstanceId": "*" },
+          "matchExact": false,
+          "metricEditorMode": 0,
+          "metricName": "NetworkOut",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
           "queryMode": "Metrics",
           "refId": "B",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(NetworkOut) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
+          "statistic": "Sum"
         }
       ],
       "title": "Rede EC2 — In / Out (bytes por período)",
@@ -1212,24 +1247,34 @@
       },
       "targets": [
         {
+          "alias": "Disk Read — {{InstanceId}}",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "metricEditorMode": 1,
-          "metricQueryType": 1,
-          "namespace": "",
+          "dimensions": { "InstanceId": "*" },
+          "matchExact": false,
+          "metricEditorMode": 0,
+          "metricName": "DiskReadBytes",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(DiskReadBytes) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
+          "statistic": "Sum"
         },
         {
+          "alias": "Disk Write — {{InstanceId}}",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "metricEditorMode": 1,
-          "metricQueryType": 1,
-          "namespace": "",
+          "dimensions": { "InstanceId": "*" },
+          "matchExact": false,
+          "metricEditorMode": 0,
+          "metricName": "DiskWriteBytes",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
           "queryMode": "Metrics",
           "refId": "B",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(DiskWriteBytes) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
+          "statistic": "Sum"
         }
       ],
       "title": "Disco EC2 — Read / Write Bytes ²",
@@ -1281,24 +1326,34 @@
       },
       "targets": [
         {
+          "alias": "Read Ops — {{InstanceId}}",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "metricEditorMode": 1,
-          "metricQueryType": 1,
-          "namespace": "",
+          "dimensions": { "InstanceId": "*" },
+          "matchExact": false,
+          "metricEditorMode": 0,
+          "metricName": "DiskReadOps",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
           "queryMode": "Metrics",
           "refId": "A",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(DiskReadOps) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
+          "statistic": "Sum"
         },
         {
+          "alias": "Write Ops — {{InstanceId}}",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "metricEditorMode": 1,
-          "metricQueryType": 1,
-          "namespace": "",
+          "dimensions": { "InstanceId": "*" },
+          "matchExact": false,
+          "metricEditorMode": 0,
+          "metricName": "DiskWriteOps",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "",
           "queryMode": "Metrics",
           "refId": "B",
           "region": "${region}",
-          "sqlExpression": "SELECT SUM(DiskWriteOps) FROM \"AWS/EC2\" WHERE \"tag:project\" = 'infograficos' GROUP BY InstanceId"
+          "statistic": "Sum"
         }
       ],
       "title": "Disco EC2 — Read / Write Ops ²",
