@@ -1,6 +1,6 @@
 services:
   prometheus:
-    image: prom/prometheus:v2.53.0
+    image: prom/prometheus:v3.12.0
     container_name: prometheus
     volumes:
       - prometheus_data:/prometheus
@@ -66,6 +66,30 @@ services:
       timeout: 10s
       retries: 3
 
+  portainer:
+    image: portainer/portainer-ce:2.42.0
+    container_name: portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - portainer_data:/data
+    ports:
+      - "9443:9443"
+    restart: unless-stopped
+    networks:
+      - monitoring
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+          cpus: "0.25"
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider https://localhost:9443 --no-check-certificate || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
 networks:
   monitoring:
     driver: bridge
@@ -74,4 +98,6 @@ volumes:
   prometheus_data:
     driver: local
   grafana_data:
+    driver: local
+  portainer_data:
     driver: local
