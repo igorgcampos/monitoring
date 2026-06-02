@@ -530,7 +530,7 @@
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 22 },
+      "gridPos": { "h": 4, "w": 12, "x": 0, "y": 22 },
       "id": 10,
       "options": {
         "colorMode": "background",
@@ -576,7 +576,7 @@
         },
         "overrides": []
       },
-      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 22 },
+      "gridPos": { "h": 4, "w": 12, "x": 12, "y": 22 },
       "id": 11,
       "options": {
         "colorMode": "background",
@@ -612,102 +612,6 @@
       "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [{ "color": "green", "value": null }]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 22 },
-      "id": 12,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": { "calcs": ["sum"], "fields": "", "values": false },
-        "textMode": "auto"
-      },
-      "targets": [
-        {
-          "alias": "Requisições",
-          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": {
-            "BucketName": "infograficos-eleicoes-oglobo",
-            "FilterId": "EntireBucket"
-          },
-          "metricEditorMode": 0,
-          "metricName": "AllRequests",
-          "metricQueryType": 0,
-          "namespace": "AWS/S3",
-          "period": "",
-          "queryMode": "Metrics",
-          "refId": "A",
-          "region": "${region}",
-          "statistic": "Sum"
-        }
-      ],
-      "title": "Requisições S3 ¹",
-      "type": "stat"
-    },
-    {
-      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "thresholds" },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 1 },
-              { "color": "red", "value": 10 }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 22 },
-      "id": 13,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": { "calcs": ["sum"], "fields": "", "values": false },
-        "textMode": "auto"
-      },
-      "targets": [
-        {
-          "alias": "Erros 4xx",
-          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": {
-            "BucketName": "infograficos-eleicoes-oglobo",
-            "FilterId": "EntireBucket"
-          },
-          "metricEditorMode": 0,
-          "metricName": "4xxErrors",
-          "metricQueryType": 0,
-          "namespace": "AWS/S3",
-          "period": "",
-          "queryMode": "Metrics",
-          "refId": "A",
-          "region": "${region}",
-          "statistic": "Sum"
-        }
-      ],
-      "title": "Erros S3 4xx ¹",
-      "type": "stat"
-    },
-    {
-      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-      "fieldConfig": {
-        "defaults": {
           "color": { "mode": "palette-classic" },
           "custom": {
             "axisCenteredZero": false,
@@ -737,7 +641,7 @@
         },
         "overrides": []
       },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 26 },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 26 },
       "id": 14,
       "options": {
         "legend": {
@@ -768,89 +672,6 @@
         }
       ],
       "title": "Crescimento do Bucket S3 (diário)",
-      "type": "timeseries"
-    },
-    {
-      "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "palette-classic" },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
-            "thresholdsStyle": { "mode": "off" }
-          },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [{ "color": "green", "value": null }]
-          },
-          "unit": "ms"
-        },
-        "overrides": []
-      },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 26 },
-      "id": 15,
-      "options": {
-        "legend": {
-          "calcs": ["mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": { "mode": "multi", "sort": "desc" }
-      },
-      "targets": [
-        {
-          "alias": "Latência Primeiro Byte",
-          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": {
-            "BucketName": "infograficos-eleicoes-oglobo",
-            "FilterId": "EntireBucket"
-          },
-          "metricEditorMode": 0,
-          "metricName": "FirstByteLatency",
-          "metricQueryType": 0,
-          "namespace": "AWS/S3",
-          "period": "",
-          "queryMode": "Metrics",
-          "refId": "A",
-          "region": "${region}",
-          "statistic": "Average"
-        },
-        {
-          "alias": "Latência Total",
-          "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-          "dimensions": {
-            "BucketName": "infograficos-eleicoes-oglobo",
-            "FilterId": "EntireBucket"
-          },
-          "metricEditorMode": 0,
-          "metricName": "TotalRequestLatency",
-          "metricQueryType": 0,
-          "namespace": "AWS/S3",
-          "period": "",
-          "queryMode": "Metrics",
-          "refId": "B",
-          "region": "${region}",
-          "statistic": "Average"
-        }
-      ],
-      "title": "Latência S3 ¹",
       "type": "timeseries"
     },
     {
@@ -1591,33 +1412,9 @@
         "sort": 0,
         "type": "query"
       },
-      {
-        "current": {},
-        "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
-        "definition": "",
-        "hide": 0,
-        "includeAll": false,
-        "label": "Bucket S3",
-        "multi": false,
-        "name": "s3_bucket",
-        "options": [],
-        "query": {
-          "dimensionFilters": {},
-          "dimensionKey": "BucketName",
-          "ec2Filters": {},
-          "instanceID": "",
-          "metricName": "BucketSizeBytes",
-          "namespace": "AWS/S3",
-          "queryType": "dimensionValues",
-          "refId": "S3BucketVar"
-        },
-        "refresh": 1,
-        "sort": 0,
-        "type": "query"
-      }
     ]
   },
-  "time": { "from": "now-3h", "to": "now" },
+  "time": { "from": "now-7d", "to": "now" },
   "timepicker": {},
   "timezone": "browser",
   "title": "Infográficos — CloudFront + S3 + EC2",
