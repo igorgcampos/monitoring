@@ -545,7 +545,7 @@
           "alias": "Tamanho",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
           "dimensions": {
-            "BucketName": "${s3_bucket}",
+            "BucketName": "infograficos-eleicoes-oglobo",
             "StorageType": "StandardStorage"
           },
           "metricEditorMode": 0,
@@ -591,7 +591,7 @@
           "alias": "Objetos",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
           "dimensions": {
-            "BucketName": "${s3_bucket}",
+            "BucketName": "infograficos-eleicoes-oglobo",
             "StorageType": "AllStorageTypes"
           },
           "metricEditorMode": 0,
@@ -637,7 +637,7 @@
           "alias": "Requisições",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
           "dimensions": {
-            "BucketName": "${s3_bucket}",
+            "BucketName": "infograficos-eleicoes-oglobo",
             "FilterId": "EntireBucket"
           },
           "metricEditorMode": 0,
@@ -687,7 +687,7 @@
           "alias": "Erros 4xx",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
           "dimensions": {
-            "BucketName": "${s3_bucket}",
+            "BucketName": "infograficos-eleicoes-oglobo",
             "FilterId": "EntireBucket"
           },
           "metricEditorMode": 0,
@@ -753,7 +753,7 @@
           "alias": "Standard Storage",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
           "dimensions": {
-            "BucketName": "${s3_bucket}",
+            "BucketName": "infograficos-eleicoes-oglobo",
             "StorageType": "StandardStorage"
           },
           "metricEditorMode": 0,
@@ -819,7 +819,7 @@
           "alias": "Latência Primeiro Byte",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
           "dimensions": {
-            "BucketName": "${s3_bucket}",
+            "BucketName": "infograficos-eleicoes-oglobo",
             "FilterId": "EntireBucket"
           },
           "metricEditorMode": 0,
@@ -836,7 +836,7 @@
           "alias": "Latência Total",
           "datasource": { "type": "cloudwatch", "uid": "${datasource}" },
           "dimensions": {
-            "BucketName": "${s3_bucket}",
+            "BucketName": "infograficos-eleicoes-oglobo",
             "FilterId": "EntireBucket"
           },
           "metricEditorMode": 0,
